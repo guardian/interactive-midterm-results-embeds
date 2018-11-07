@@ -1,0 +1,23 @@
+{
+  "name": "interactive-midterm-results-embeds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardian/interactive-midterm-results-embeds.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guardian/interactive-midterm-results-embeds/issues"
+  },
+  "homepage": "https://github.com/guardian/interactive-midterm-results-embeds#readme",
+  "devDependencies": {
+    "handlebars": "^4.0.12",
+    "sync-request": "^6.0.0"
+  }
+}

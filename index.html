@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html><head> <base href="." target="_blank"> <title></title></head>
+<body style="padding: 0px; margin: 0px; overflow: hidden;">
+    <script src="https://interactive.guim.co.uk/libs/iframe-messenger/iframeMessenger.js"></script>
+	<script>
+		iframeMessenger.enableAutoResize();
+	</script> 
+ <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+ <style>
+    @font-face {
+        font-family: 'Guardian Egyptian Web';
+        src: url("https://interactive.guim.co.uk/fonts/guss-webfonts/GHGuardianHeadline/GHGuardianHeadline-Bold.woff2") format("woff2"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GHGuardianHeadline/GHGuardianHeadline-Bold.woff") format("woff"), url("https://interactive.guim.co.uk/fonts/guss-webfonts/GHGuardianHeadline/GHGuardianHeadline-Bold.ttf") format("truetype");
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+    }
+
+    @font-face{
+        font-family:'Guardian Text Sans Web';
+        src:url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.eot');
+        src:url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.eot?#iefix') format('embedded-opentype'),
+            url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.woff2') format('woff2'),
+            url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.woff') format('woff'),
+            url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.ttf') format('truetype'),
+            url('https://interactive.guim.co.uk/fonts/guss-webfonts/GuardianTextSansWeb/GuardianTextSansWeb-Regular.svg#GuardianTextSansWeb-Regular') format('svg');
+        font-weight:400;
+        font-style:normal;
+        font-stretch:normal
+    }
+
+    .wrapper {
+        border-top: 1px solid #dfdfdf;
+        border-bottom: 1px solid #dfdfdf;
+        padding: 2px 0;
+        max-width: 620px;
+        margin: 0 auto;
+    }
+
+    .title {
+        font-size: 20px;
+        font-family: 'Guardian Egyptian Web';
+        font-weight: 900;
+        color: #121212;
+        margin: 0;
+        padding-bottom: 12px;
+    }
+
+    .race-status {
+        font-family: 'Guardian Text Sans Web';
+        font-size: 14px;
+        color: #676767;
+        margin: 0;
+        font-weight: normal;
+        padding-bottom: 6px;
+    }
+
+    .row {
+        display: flex;
+        width: 100%;
+        font-family: 'Guardian Text Sans Web';
+        font-size: 14px;
+        color: #121212;
+        font-weight: normal;
+        padding: 7px 0 5px;
+        background-image: linear-gradient(to right, #dcdcdc 50%, transparent 0%);
+        background-size: 10px 1px;
+        background-position: left top;
+        background-repeat: repeat-x;
+    }
+
+    .row > span {
+        box-sizing: border-box;
+        padding-right: 4px;
+        flex-grow: 0;
+        flex-basis: 1;
+    }
+
+    .row--title {
+        color: #676767;
+    }
+
+    .candidate {
+        width: 40%;
+    }
+
+    .candidate-party {
+        color: rgb(125, 0, 104);
+    }
+
+    .row--D .candidate-party {
+        color: rgb(0, 132, 198);
+    }
+
+    .row--R .candidate-party {
+        color: #c70000;
+    }
+
+    .vote {
+        width: 20%;
+    }
+
+    .percentage {
+        width: 40%;
+    }
+
+    .percentage-bar {
+        background-color: rgb(125, 0, 104);
+        display: block;
+        height: 100%;
+    }
+
+    .row--D .percentage-bar {
+        background-color: rgb(0, 132, 198);
+    }
+
+    .row--R .percentage-bar {
+        background-color: #c70000;
+    }
+
+</style>
+
+<div class='wrapper'>
+    <h1 class='title'>{{ formatTitle title chamber }}</h1>
+    {{#if winner}}
+        <h3 class='race-status'>Race called</h3>
+    {{/if}}
+
+    {{#details}}
+        {{#if ../winner}} {{ else }}
+            <h3 class='race-status'>{{ reporting }}% reporting</h3>
+        {{/if}}
+        <div class='table'>
+            <div class='row row--title'>
+                <span class='candidate'>Candidate</span>
+                <span class='vote'>Vote</span>
+            </div>
+        {{#each candidates}}
+            <div class='row row--{{ party }}'>
+                <span class='candidate'>{{ name }} {{#if incumbent}}*{{/if}} <span class='candidate-party'>({{ party }})</span></span>
+                <span class='vote'>{{ formatNumbers votes }}</span>
+                <span class='percentage'>
+                    <span class='percentage-bar' style='width: {{ votesAsAPercentage votes }}%;'></span>
+                </span>
+            </div>
+        {{/each}}
+    {{/details}}
+    </div>
+</div>
+
+</body>
+</html>
