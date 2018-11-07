@@ -58,9 +58,8 @@ function buildEmbeds(chamber) {
                     totalVotes += race.details.candidates[i].votes;
                 }
 
-                return votes * 100 / totalVotes;
+                return (votes * 100 / totalVotes).toFixed(1);
             }
-
         }.bind(race));
 
         fs.mkdirsSync('./.build/v1/' + chamber);

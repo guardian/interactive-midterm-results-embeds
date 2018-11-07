@@ -43,6 +43,7 @@
         color: #121212;
         margin: 0;
         padding-bottom: 12px;
+        -webkit-font-smoothing: antialiased;
     }
 
     .race-status {
@@ -79,12 +80,30 @@
         color: #676767;
     }
 
+    .row--winner {
+        background-color: rgba(125, 0, 104, 0.1);
+    }
+
+    .row--D.row--winner {
+        background-color: rgba(0, 132, 198, 0.1);
+    }
+
+    .row--R.row--winner {
+        background-color: rgba(199, 0, 0, 0.1);
+    }
+
     .candidate {
         width: 40%;
     }
 
     .candidate-party {
         color: rgb(125, 0, 104);
+    }
+
+    .candidate-incumbent {
+        font-size: 12px;
+        vertical-align: bottom;
+        color: #676767;
     }
 
     .row--D .candidate-party {
@@ -106,7 +125,7 @@
     .percentage-bar {
         background-color: rgb(125, 0, 104);
         display: block;
-        height: 100%;
+        height: 12px;
     }
 
     .row--D .percentage-bar {
@@ -135,9 +154,9 @@
                 <span class='vote'>Vote</span>
             </div>
         {{#each candidates}}
-            <div class='row row--{{ party }}'>
-                <span class='candidate'>{{ name }} {{#if incumbent}}*{{/if}} <span class='candidate-party'>({{ party }})</span></span>
-                <span class='vote'>{{ formatNumbers votes }}</span>
+            <div class='row row--{{ party }} {{#if isWinner }}row--winner{{/if}}'>
+                <span class='candidate'>{{ name }} <span class='candidate-party'>({{ party }})</span> {{#if isIncumbent}}<span class='candidate-incumbent'>incumbent</span>{{/if}} </span>
+                <span class='vote'>{{ votesAsAPercentage votes }}%</span>
                 <span class='percentage'>
                     <span class='percentage-bar' style='width: {{ votesAsAPercentage votes }}%;'></span>
                 </span>

@@ -1,7 +1,8 @@
-module.exports = function deploy(buildVersion) {
+function deploy() {
+    console.log('hey');
     var thingsToUpload = [
         {
-            files: 'v/**/*',
+            files: '**/*',
             headers: {
                 CacheControl: 'max-age=20'
             }
@@ -24,14 +25,14 @@ module.exports = function deploy(buildVersion) {
     var chalk = require( 'chalk' );
 
     var BUCKET = 'gdn-cdn';
-    var config = require( './config.json' );
 
-    var BASE_DIR = path.resolve( '.deploy' );
+    var BASE_DIR = path.resolve( '.build' );
     var MAX_CONCURRENT_UPLOADS = 8;
 
     try {
         var CREDENTIALS = new AWS.SharedIniFileCredentials({profile: 'default'});
         AWS.config.credentials = CREDENTIALS;
+
     } catch ( err ) {
         var message = 'Could not find AWS credentials. Make sure they have been added to ~/.aws/credentials';
 
@@ -42,6 +43,8 @@ module.exports = function deploy(buildVersion) {
     var s3 = new AWS.S3();
 
     var uploadQueue = [];
+
+    console.log(thingsToUpload);
 
     thingsToUpload.forEach( function ( thing ) {
         var files = glob.sync( thing.files, {
@@ -80,9 +83,6 @@ module.exports = function deploy(buildVersion) {
             if ( !inFlight ) {
                 loader.stop();
                 console.log( '\n\nUpload complete!');
-
-                var atomPath = 'https://' + (buildVersion === 'preview' ? 'internal.' : '') + 'content.guardianapis.com/atom/interactive/interactives/' + config.remote.path.replace('atoms/', '');
-                console.log( '\nAtom available at ' + atomPath);
             }
 
             return;
@@ -95,7 +95,7 @@ module.exports = function deploy(buildVersion) {
         var options = {
             Bucket: BUCKET,
             ACL: 'public-read',
-            Key: config.remote.path + '/' + item.file,
+            Key: 'embed/2018/11/midterm-results/' + item.file,
             Body: data,
             ContentType: mime.lookup( item.file )
         };
@@ -122,3 +122,5 @@ module.exports = function deploy(buildVersion) {
         return str;
     }
 }
+
+deploy();
